@@ -15,7 +15,7 @@ downloads/
 eggs/
 .eggs/
 lib/
-lib/pip
+
 lib64/
 parts/
 sdist/
@@ -24,7 +24,7 @@ wheels/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
-*.egg
+*.egg__init__
 MANIFEST
 
 # PyInstaller
@@ -93,7 +93,7 @@ ipython_config.py
 #   However, in case of collaboration, if having platform-specific dependencies or dependencies
 #   having no cross-platform support, pipenv may install dependencies that don't work, or not
 #   install all needed dependencies.
-#Pipfile.lock
+# Pipfile.lock
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
