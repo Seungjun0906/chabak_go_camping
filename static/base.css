@@ -1,0 +1,43 @@
+/* BASIC SET UP */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "Roboto" sans-serif;
+}
+
+body {
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* NAVBAR */
+.navbar {
+  margin: 0 auto;
+  width: 50%;
+  height: 3rem;
+  padding: 0.5rem 2rem;
+  background-color: #8fb8de;
+  border-radius: 0.5rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar__logo {
+  margin-right: 0.5rem;
+}
+
+.navbar-items {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 5rem;
+  list-style: none;
+}
