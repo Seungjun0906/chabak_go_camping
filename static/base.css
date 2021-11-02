@@ -77,23 +77,20 @@ body {
   transform: translate(-15rem, -3rem);
 }
 
-/* LOGIN FORM */
-
-.login-modal {
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  background-color: skyblue;
-  z-index: 100;
+.to-login,
+.to-login:active,
+.to-login:link,
+.to-login:visited {
+  text-decoration: none;
+  color: #000000;
 }
 
-.login-modal.hidden {
+/* LOGIN FORM */
+.container {
   height: 100vh;
   width: 100vw;
   position: fixed;
   background-color: skyblue;
-  z-index: 100;
-  visibility: hidden;
 }
 
 .login-form {
@@ -179,23 +176,11 @@ body {
   }
 }
 
-@media (max-width: 650px) {
-  html {
-    font-size: 60%;
-  }
-}
-
 @media (max-width: 590px) {
   .navbar {
     margin-left: 4rem;
   }
   .navbar__item {
     font-size: 1.2rem;
-  }
-}
-
-@media (max-width: 550px) {
-  html {
-    font-size: 50%;
   }
 }

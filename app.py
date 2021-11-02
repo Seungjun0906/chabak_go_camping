@@ -23,31 +23,36 @@ def main():
     print(res)
     return render_template('main.html')
 
+@app.route('/login',methods=['GET'])
+def render_login():
+    if request.method=="GET":
+        return render_template("login.html")
 
 @app.route('/login', methods=['POST'])
 def login():
+    if request.method == "POST":
+        user_id = request.form['username']
+        password = request.form['password']
 
-    user_id = request.form['username']
-    password = request.form['password']
+        pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
-    pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        user_data = db.users.fine_one({'id':user_id,'pw':pw_hash})
+        
+        if not user_data:
+            return flash("없는 아이디입니다.")
+        elif pw_hash != user_data['password']:
+            return flash("로그인 실패")
 
-    user_data = db.users.fine_one({'id':user_id,'pw':pw_hash})
-    
-    if not user_data:
-        return flash("없는 아이디입니다.")
-    elif pw_hash != user_data['password']:
-        return flash("로그인 실패")
-
-    if user_data:
-        payload = {
-            'id': user_id,
-            'exp': datetime.utcnow() + datetime.timedelta(hours=1)
-        }
-    token = jwt.encode(payload,SECRET_KEY,algoristm='HS256')
-    return jsonify({
-        'access_token' : token
-    })
+        if user_data:
+            payload = {
+                'id': user_id,
+                'exp': datetime.utcnow() + datetime.timedelta(hours=1)
+            }
+        # 뒤에 decode는 byte 속성을 문자열로 바꾸는 역할
+        token = jwt.encode(payload,SECRET_KEY,algoristm='HS256').decode('utf-8')
+        return jsonify({
+            'access_token' : token
+        })
 
 
 @app.route('/register', methods=['GET'])

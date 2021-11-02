@@ -1,5 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="{{ url_for('static', filename='bootstrap.min.css') }}"
+    />
+</head>
+<body>
 
-<div class = "login-modal">
     <form action="{{ url_for('register') }}" method="post">
         <div class="form-group">
             <label for="user_id">email</label>
@@ -20,10 +33,15 @@
         
         <input class="btn btn-primary" type="submit" value="회원가입">
     </form>
-</div>
-<!-- flash로 보내는 신호 수신 -->
-{% for message in get_flashed_messages() %}
-        <div class="alert alert-info">
-            {{ message }}
-        </div>
-{% endfor %}
+    <!-- flash로 보내는 신호 수신 -->
+    {% for message in get_flashed_messages() %}
+            <div class="alert alert-info">
+                {{ message }}
+            </div>
+    {% endfor %}
+        
+</body>
+</html>
+
+
+
