@@ -40,7 +40,7 @@ const fetchData = async () => {
     cardContainer.insertAdjacentHTML("beforeend", html);
   });
 
-  console.log(cardContent);
+  console.log(items);
 };
 
 window.addEventListener("load", fetchData);
