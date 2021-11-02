@@ -19,74 +19,30 @@
     <title>차박GO캠핑</title>
   </head>
   <body>
-    <!-- Modal -->
-    <div class="modal-bg"></div>
-    <div class="login-modal hidden" id="login-modal">
-      <form class="login-form" action="POST">
-        <div class="form-control">
-          <label for="username">아이디</label>
-          <input name="username" type="text" placeholder="username" id="username">
-        </div>
-
-        <div class="form-control">
-          <label for="password">비밀번호</label>
-          <input name="passwword" type="password" placeholder="password" id="password">
-        </div>
-        <button type="submit" class="btn btn-login">로그인</button>
-        <button type="button" class="btn btn-signup">회원가입</button>
-      </form>   
-    </div>
-   <!-- Modal END  -->
-
     <div class="container" id="content-container">
       <!-- NAVBAR -->
       <header>
         <nav class="navbar">
           <div class="navbar__logo" id="logo">
-            <img class="logo-img" src="https://img.icons8.com/emoji/48/000000/camping.png"/>
+            <img
+              class="logo-img"
+              src="https://img.icons8.com/emoji/48/000000/camping.png"
+            />
             <ul class="navbar__items">
-              <li class='item-1'>MENU</li>
-              <li class='navbar__item item-2'>HOME</li>
-              <li class='navbar__item item-3'>REVIEW</li>
-              <li class='navbar__item item-4' id="menu-login">LOGIN</li>
+              <li class="item-1">MENU</li>
+              <li class="navbar__item item-2">HOME</li>
+              <li class="navbar__item item-3">REVIEW</li>
+              <li class="navbar__item item-4" id="menu-login">
+                <a class="to-login" href="/login">LOGIN</a>
+              </li>
             </ul>
           </div>
         </nav>
         <div class="greet">차박GO캠핑</div>
       </header>
       <!-- CAMP GROUND LIST -->
-      <main id=main-content>
-        <div class="card-container" id="card-container"></div>      
-        <!-- <div class="card">
-            <div class="card__img">
-              <img src="#" alt="#" />
-            </div>
-            <div class="card__description">
-              <h3 class="description__name">name</h3>
-              <p class="description__adr">address</p>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card__img">
-              <img src="#" alt="#" />
-            </div>
-            <div class="card__description">
-              <h3 class="description__name">name</h3>
-              <p class="description__adr">address</p>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card__img">
-              <img src="#" alt="#" />
-            </div>
-            <div class="card__description">
-              <h3 class="description__name">name</h3>
-              <p class="description__adr">address</p>
-            </div>
-           -->
-          </div>
+      <main id="main-content">
+        <div class="card-container" id="card-container"></div>
       </main>
       <footer></footer>
     </div>

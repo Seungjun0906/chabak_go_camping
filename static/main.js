@@ -1,7 +1,7 @@
 const mainContent = document.getElementById("main-content");
-const menuLogin = document.getElementById("menu-login");
-const loginModal = document.getElementById("login-modal");
 const container = document.getElementById("content-container");
+// const menuLogin = document.getElementById("menu-login");
+// const loginModal = document.getElementById("login-modal");
 
 // APT
 const apiKey =
@@ -35,17 +35,18 @@ const fetchData = async () => {
   console.log(items);
 };
 
-const loginShow = () => {
-  loginModal.classList.remove("hidden");
-};
-const loginHidden = (e) => {
-  if (e.target === loginModal) {
-    loginModal.classList.add("hidden");
-  }
-
-  console.log(e.target);
-};
-
-menuLogin.addEventListener("click", loginShow);
-loginModal.addEventListener("click", loginHidden);
 window.addEventListener("load", fetchData);
+
+// const loginShow = () => {
+//   loginModal.classList.remove("hidden");
+// };
+// const loginHidden = (e) => {
+//   if (e.target === loginModal) {
+//     loginModal.classList.add("hidden");
+//   }
+
+//   console.log(e.target);
+// };
+
+// menuLogin.addEventListener("click", loginShow);
+// loginModal.addEventListener("click", loginHidden);
