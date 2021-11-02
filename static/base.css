@@ -13,31 +13,144 @@ body {
   box-sizing: border-box;
   height: 100vh;
   width: 100vw;
+  position: absolute;
 }
 
 /* NAVBAR */
 .navbar {
-  margin: 0 auto;
-  width: 50%;
+  width: 5%;
   height: 3rem;
   padding: 0.5rem 2rem;
-  background-color: #8fb8de;
   border-radius: 0.5rem;
-
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  cursor: pointer;
 }
 
 .navbar__logo {
   margin-right: 0.5rem;
 }
 
-.navbar-items {
+.navbar__logo img {
+  height: 10rem;
+  width: 10rem;
+}
+
+/* MENU ANIMATION */
+
+.navbar:hover .item-1 {
+  transform: translateX(-10rem);
+  transition: transform 0.3s ease-in;
+}
+
+.navbar:hover .item-2 {
+  transform: translateX(0);
+  transition: transform 0.3s ease-in;
+}
+.navbar:hover .item-3 {
+  transform: translateX(0);
+  transition: transform 0.4s ease-in;
+}
+.navbar:hover .item-4 {
+  transform: translateX(0);
+  transition: transform 0.5s ease-in;
+}
+
+.navbar__items {
+  margin-top: 1rem;
   flex: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
   gap: 1rem;
-  margin-left: 5rem;
   list-style: none;
+
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.navbar__item {
+  transform: translate(-10rem, -3rem);
+}
+
+/* LOGIN FORM */
+
+.login-modal {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  background-color: skyblue;
+  z-index: 100;
+}
+
+.login-modal.hidden {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  background-color: skyblue;
+  z-index: 100;
+  visibility: hidden;
+}
+
+.login-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: whitesmoke;
+  padding: 3rem;
+  border-radius: 1rem;
+  box-shadow: 0.5rem 0.5rem 1rem;
+  height: 30rem;
+  width: 40rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.form-control label {
+  margin-bottom: 0.8rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.form-control input {
+  font-family: inherit;
+  font-size: 2rem;
+  text-align: center;
+  padding: 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  letter-spacing: 4px;
+  border: none;
+}
+
+.btn {
+  padding: 1rem;
+  width: 100%;
+  letter-spacing: 1px;
+  border-radius: 1rem;
+  box-shadow: 0.5rem 0.5rem 1rem;
+  font-weight: bold;
+  border: none;
+  background: #e4dede;
+}
+
+.btn-login {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
 }

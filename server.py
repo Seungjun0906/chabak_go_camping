@@ -12,5 +12,3 @@ def main():
     print(res)
     return render_template('main.html')
 
-
-
