@@ -4,6 +4,8 @@
   text-align: center;
   margin-bottom: 3rem;
   padding: 1rem;
+  font-weight: 900;
+  font-style: italic;
 }
 
 .container {
@@ -11,11 +13,11 @@
   width: 100vw;
   margin: 0 auto;
   background: linear-gradient(to bottom right, #cdf7f6, #ffffff);
+  overflow: auto;
 }
 
 .card-container {
   padding: 2rem;
-  border: 1px solid white;
   width: 80%;
   margin: 0 auto;
 
@@ -50,4 +52,28 @@
 .card__description p {
   padding: 0.2rem;
   font-size: 1.2rem;
+}
+
+@media (max-width: 960px) {
+  .greet {
+    font-size: 6rem;
+  }
+
+  .card-container {
+    width: 50%;
+  }
+
+  .card__img img {
+    width: 100%;
+  }
+}
+
+@media (max-width: 590px) {
+  .greet {
+    font-size: 4rem;
+  }
+
+  .item-1 {
+    font-size: 1.3rem;
+  }
 }

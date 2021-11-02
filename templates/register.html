@@ -1,23 +1,26 @@
-<form action="{{ url_for('register') }}" method="post">
-    <div class="form-group">
-        <label for="user_id">email</label>
-        <input class="form-control" id="user_id" name="user_id" type="text" placeholder="이메일 입력">
-    </div>
-    <div class="form-group">
-        <label for="fullname">fullname</label>
-        <input class="form-control" id="fullname" name="fullname" placeholder="이름 입력">
-    </div>
-    <div class="form-group">
-        <label for="password">password</label>
-        <input class="form-control" id="password" name="password" type="password" placeholder="비밀번호 입력">
-    </div>
-    <div class="form-group">
-        <label for="password">password check</label>
-        <input class="form-control" id="check_password" name="check_password" type="password" placeholder="비밀번호 확인">
-    </div>
-    
-    <input class="btn btn-primary" type="submit" value="회원가입">
-</form>
+
+<div class = "login-modal">
+    <form action="{{ url_for('register') }}" method="post">
+        <div class="form-group">
+            <label for="user_id">email</label>
+            <input class="form-control" id="user_id" name="user_id" type="text" placeholder="이메일 입력">
+        </div>
+        <div class="form-group">
+            <label for="fullname">fullname</label>
+            <input class="form-control" id="fullname" name="fullname" placeholder="이름 입력">
+        </div>
+        <div class="form-group">
+            <label for="password">password</label>
+            <input class="form-control" id="password" name="password" type="password" placeholder="비밀번호 입력">
+        </div>
+        <div class="form-group">
+            <label for="password">password check</label>
+            <input class="form-control" id="check_password" name="check_password" type="password" placeholder="비밀번호 확인">
+        </div>
+        
+        <input class="btn btn-primary" type="submit" value="회원가입">
+    </form>
+</div>
 <!-- flash로 보내는 신호 수신 -->
 {% for message in get_flashed_messages() %}
         <div class="alert alert-info">

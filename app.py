@@ -1,14 +1,17 @@
-from flask import Flask,request,render_template,redirect,flash
+from datetime import datetime
+from flask import Flask,request,render_template,redirect,flash,url_for
+from flask.json import jsonify
 import requests
 import jwt
 import hashlib
-
+import datetime
 from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
 db = client.users
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "ABCD"
+SECRET_KEY = 'secret'
 
 API_KEY= 'W7rRGCTEuCgKF9Ml%2FwKJbHCJf0duO218F3SYriSEGGFnjmztdsdfE9CmzyEcW8vma%2FwxwqteC1HIXU4bTgjjOg%3D%3D'
 API_URL=f'http://api.visitkorea.or.kr/openapi/service/rest/GoCamping/basedList?ServiceKey={API_KEY}&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=TestApp&_type=json'
@@ -21,12 +24,39 @@ def main():
     return render_template('main.html')
 
 
+@app.route('/login', methods=['POST'])
+def login():
+
+    user_id = request.form['username']
+    password = request.form['password']
+
+    pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+
+    user_data = db.users.fine_one({'id':user_id,'pw':pw_hash})
+    
+    if not user_data:
+        return flash("없는 아이디입니다.")
+    elif pw_hash != user_data['password']:
+        return flash("로그인 실패")
+
+    if user_data:
+        payload = {
+            'id': user_id,
+            'exp': datetime.utcnow() + datetime.timedelta(hours=1)
+        }
+    token = jwt.encode(payload,SECRET_KEY,algoristm='HS256')
+    return jsonify({
+        'access_token' : token
+    })
+
 
 @app.route('/register', methods=['GET'])
 def join():
     if request.method == 'GET':
         return render_template('register.html')
 
+
+    
 @app.route('/register', methods=['POST'])
 def register():
     if request.method == 'POST' :
