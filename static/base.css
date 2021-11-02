@@ -28,6 +28,7 @@ body {
   align-items: center;
   position: relative;
   cursor: pointer;
+  margin-left: 2.5rem;
 }
 
 .navbar__logo {
@@ -73,7 +74,7 @@ body {
 }
 
 .navbar__item {
-  transform: translate(-10rem, -3rem);
+  transform: translate(-15rem, -3rem);
 }
 
 /* LOGIN FORM */
@@ -153,4 +154,48 @@ body {
 .btn-login {
   margin-top: 3rem;
   margin-bottom: 1rem;
+}
+
+@media (max-width: 960px) {
+  .navbar__logo img {
+    height: 6rem;
+    width: 6rem;
+  }
+
+  .navbar {
+    margin-left: 6rem;
+  }
+
+  .navbar__logo {
+    margin-right: 0.5rem;
+  }
+  .item-1 {
+    font-size: 1.7rem;
+  }
+
+  .navbar__item {
+    transform: translate(0rem, 0rem);
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 650px) {
+  html {
+    font-size: 60%;
+  }
+}
+
+@media (max-width: 590px) {
+  .navbar {
+    margin-left: 4rem;
+  }
+  .navbar__item {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 550px) {
+  html {
+    font-size: 50%;
+  }
 }
