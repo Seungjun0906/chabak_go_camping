@@ -38,6 +38,9 @@
         <div class="greet">차박GO캠핑</div>
         <div class="">{{name}}</div>
       </header>
+      {% block page_content %}
+        안녕하세요 {{user_id}} 님!
+      {% endblock %}
       <!-- CAMP GROUND LIST -->
       <main id="main-content">
         <div class="card-container" id="card-container"></div>
