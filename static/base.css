@@ -28,7 +28,7 @@ body {
   align-items: center;
   position: relative;
   cursor: pointer;
-  margin-left: 2.5rem;
+  margin-left: 5.5rem;
 }
 
 .navbar__logo {
@@ -36,8 +36,8 @@ body {
 }
 
 .navbar__logo img {
-  height: 10rem;
-  width: 10rem;
+  height: 13rem;
+  width: 20rem;
 }
 
 /* MENU ANIMATION */
