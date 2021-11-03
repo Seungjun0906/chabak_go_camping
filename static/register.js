@@ -1,6 +1,34 @@
 // 아이디, 비밀번호 받아 DB에 저장
+function yeaaa() {
+    console.log("SSDFS")
+}
+yeaaa()
+// $(document).ready(function(){
+//     $("form[name=signup_form").submit(function (e) {
+//         var $form = $(this);
+//         var $error = $form.find(".error");
+//         var data = $form.serialize();
+    
+//         $.ajax({
+//             url: "/register",
+//             type: "POST",
+//             dataType: "json",
+//             success: function (res) {
+//                 console.log(res);
+//                 window.location.href = '/login/'
+//             },
+//             error: function (res) {
+//                 console.log(res);
+//                 $error.text(res.responseJSON.msg);
+//             },
+//         });
+    
+//         e.preventDefault();
+//     });
+// })
+
 function sign_up() {
-    if(check_dup()) {
+    if (check_dup()) {
         $.ajax({
             type: "POST",
             url: "/register",
@@ -13,16 +41,16 @@ function sign_up() {
                 console.log(response)
                 if (response['result'] == 'success') {
                     console.log(response['result'])
-                    alert('회원가입이 완료되었습니다.') 
-                    // $.cookie('mytoken', response['token']);
-                    window.location.replace("/login")
+                    alert('회원가입이 완료되었습니다.')
+                    $.cookie('mytoken', response['token']);
+                    return window.location.replace("/login")
                 } else {
                     console.log(response['result'])
-                    alert(response['msg'])
+                    return alert(response['msg'])
                 }
             }
         })
-    }                
+    }
 }
 function check_dup() {
     let id = $("#user_id").val()
@@ -68,4 +96,4 @@ function is_nickname(asValue) {
 function is_password(asValue) {
     var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{8,20}$/;
     return regExp.test(asValue);
-}                      
+}

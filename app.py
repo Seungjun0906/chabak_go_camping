@@ -51,52 +51,55 @@ def login():
 
 @ app.route('/login', methods=['POST'])
 def render_login():
-    id_receive = request.form['user_id']
-    pw_receive = request.form['password']
+    if request.method == 'POST':
+        id_receive = request.form['user_id']
+        pw_receive = request.form['password']
 
-    pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
-    result = db.user.find_one({'id': id_receive, 'pw': pw_hash})
+        pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
+        result = db.user.find_one({'id': id_receive, 'pw': pw_hash})
 
-    if result is not None:
-        payload = {
-            'id': id_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
-        }
-        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+        if result is not None:
+            payload = {
+                'id': id_receive,
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
+            }
+            token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
-        return jsonify({'result': 'success', 'token': token})
-    else:
-        return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
+            return jsonify({'result': 'success', 'token': token})
+        else:
+            return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 
-@ app.route('/register')
+@ app.route('/register', methods=['GET'])
 def register():
+    if request.method == "GET":    
         return render_template('register.html')
 
 
 @ app.route('/register', methods=['POST'])
 def sign_up():
-    id_receive = request.form['user_id']
-    pw_receive = request.form['password']
-    check_password = request.form['check_password']
+    if request.method == "POST":
+        id_receive = request.form['user_id']
+        pw_receive = request.form['password']
+        check_password = request.form['check_password']
 
-    check_dup_user = db.user.find_one({'id': id_receive})
+        check_dup_user = db.user.find_one({'id': id_receive})
 
-    if check_dup_user is not None:
-        if check_dup_user['id']==id_receive:
-            return jsonify({'result': 'fail', 'msg': '중복된 아이디가 존재합니다.'})
+        if check_dup_user is not None:
+            if check_dup_user['id']==id_receive:
+                return jsonify({'result': 'fail', 'msg': '중복된 아이디가 존재합니다.'})
 
-    if pw_receive != check_password:
-        return jsonify({'result': 'fail', 'msg': '비밀번호가 서로 일치하지 않습니다.'})
+        if pw_receive != check_password:
+            return jsonify({'result': 'fail', 'msg': '비밀번호가 서로 일치하지 않습니다.'})
 
-    pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
+        pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    db.user.insert_one({'id': id_receive, 'pw': pw_hash })
+        db.user.insert_one({'id': id_receive, 'pw': pw_hash })
 
-    # result = db.user.find_one({'id': id_receive, 'pw': pw_hash})
+        # result = db.user.find_one({'id': id_receive, 'pw': pw_hash})
 
-    return jsonify ({'result':'success'})
-    
+        return jsonify ({'result':'success'})
+        
 
 
 

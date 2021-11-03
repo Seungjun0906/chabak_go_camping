@@ -21,10 +21,10 @@ function login() {
                 // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
                 // 토큰을 mytoken이라는 키 값으로 쿠키에 저장합니다.
                 $.cookie('mytoken', response['token']);
-                window.location.href = '/'
+                return window.location.href = '/'
             } else {
                 // 로그인이 실패시 에러메시지를 띄웁니다.
-                alert(response['msg'])
+                return alert(response['msg'])
             }
         }
     })
