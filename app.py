@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 import requests
 import hashlib
 import datetime
+# from signup.signup import User
 client = MongoClient('localhost', 27017)
 db = client.users
 
@@ -33,7 +34,6 @@ def main():
         return redirect(url_for('render_login'))
     except jwt.exceptions.DecodeError:
         return redirect(url_for('render_login'))
-
 @app.route('/article')
 def show_article() :
     token_receive = request.cookies.get('mytoken')
@@ -95,29 +95,69 @@ def join():
     if request.method == 'GET':
         return render_template('register.html')
 
+class User:
+    
+    def signup(self):
+        print(request.form)
+        
+        user={
+        "id":request.form['user_id'],
+        "fullname":request.form['fullname'],
+        "password":request.form['password'],
+        "check_password":request.form['check_password'] 
+        }
+        
+        hashlib.sha256(user['password'].encode('utf-8')).hexdigest()
+        
+        # check exisiting
+        if db.users.find_one({'id':user['id']}):
+            flash("이미 가입된 이메일입니다")
+            return redirect('/register')
+        elif db.users.find_one({'check_password':user['password']}):
+            flash("패스워드를 다시 확인해주세요")
+            return redirect('/register')
+        else: 
+            redirect('/login')
+            db.users.insert_one(user)
+            return jsonify(user)
+            # return redirect('/login')
+            
+            
+        # not db.users.find_one({'id':user['id']}) and db.users.find_one({'check_password':user['password']}):
+       
+        
+        
+       
+    
+        
 
     
 @app.route('/register', methods=['POST'])
 def register():
-    if request.method == 'POST' :
-        user_id = request.form['user_id']
-        fullname = request.form['fullname']
-        password = request.form['password']
-        check_password = request.form['check_password']
+    user = User()
+    return user.signup()
+    
+    # if request.method == 'POST' :
+    #       user={
+    #     "id":request.form['user_id'],
+    #     "fullname":request.form['fullname'],
+    #     "password":request.form['password'],
+    #     "check_password":request.form['check_password']            }
+        
+    #     if db.user.find_one({"id":user["id"]}):
+        
+    #     if user_id in user_info  :
+    #         flash("이미 가입된 이메일입니다")
+    #         return redirect('/register')
 
-        user_info = db.users.find_one({'id':user_id})
-        if user_info is not None:
-            flash("이미 가입된 이메일입니다")
-            return redirect('/register')
+    #     if password != check_password:
+    #         flash("패스워드를 다시 확인해주세요")
+    #         return redirect('/register')
+    #     pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
-        if password != check_password:
-            flash("패스워드를 다시 확인해주세요")
-            return redirect('/register')
-        pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
-
-        db.user.insert_one({'id': user_id, 'pw': pw_hash, 'fullname': fullname})
+    #     db.users.insert_one(user)
             
-    return render_template('main.html')
+    # return render_template('login.html')
 
 
 if __name__ == '__main__':

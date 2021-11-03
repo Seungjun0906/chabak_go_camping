@@ -27,8 +27,7 @@ const fetchData = async () => {
                 <p class="description__adr">${item.addr1}</p>
             </div>
         </div>
-    </div>
-          `;
+    </div>`;
     mainContent.insertAdjacentHTML("beforeend", html);
   });
 
