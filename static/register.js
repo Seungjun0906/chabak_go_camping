@@ -1,6 +1,5 @@
 // 아이디, 비밀번호 받아 DB에 저장
-function sign_up(e) {
-    e.preventDefault()
+function sign_up() {
     if(check_dup()) {
         $.ajax({
             type: "POST",
@@ -11,11 +10,14 @@ function sign_up(e) {
                 check_pasword: $('#check_password').val()
             },
             success: function (response) {
+                console.log(response)
                 if (response['result'] == 'success') {
+                    console.log(response['result'])
                     alert('회원가입이 완료되었습니다.') 
                     // $.cookie('mytoken', response['token']);
-                    window.location.replace = "/login";
+                    window.location.replace("/login")
                 } else {
+                    console.log(response['result'])
                     alert(response['msg'])
                 }
             }

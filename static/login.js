@@ -1,7 +1,7 @@
 function login() {
 
-    let id_give = $("#id_give").val();
-    let pw_give = $("#pw_give").val();
+    let id_give = $("#user_id").val();
+    let pw_give = $("#password").val();
 
     if (id_give == "") {
         alert("아이디를 입력해주세요");

@@ -91,7 +91,7 @@ def sign_up():
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    db.user.insert_one({'id': id_receive, 'pw': pw_hash, })
+    db.user.insert_one({'id': id_receive, 'pw': pw_hash })
 
     # result = db.user.find_one({'id': id_receive, 'pw': pw_hash})
 
