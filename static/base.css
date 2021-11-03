@@ -85,6 +85,14 @@ body {
   color: #000000;
 }
 
+.to-review,
+.to-review:active,
+.to-review:link,
+.to-review:visited {
+  text-decoration: none;
+  color: #000000;
+}
+
 /* LOGIN FORM */
 .container {
   height: 100vh;

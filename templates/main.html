@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 부트스트랩 -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <!-- for every pages -->
     <link rel="stylesheet" href="static/base.css" type="text/css" />
     <!-- for main page -->
@@ -31,7 +35,9 @@
             <ul class="navbar__items">
               <li class="item-1">MENU</li>
               <li class="navbar__item item-2">HOME</li>
-              <li class="navbar__item item-3">REVIEW</li>
+              <li class="navbar__item item-3" >
+                <a class="to-review" href="/review">REVIEW</a> 
+              </li>
               <li class="navbar__item item-4" id="menu-login">
                 <a class="to-login" href="/login">LOGIN</a>
               </li>
@@ -40,9 +46,7 @@
         </nav>
         <div class="greet">차박GO캠핑</div>
       </header>
-      {% block page_content %}
-        안녕하세요 {{user_id}} 님!
-      {% endblock %}
+      
       <!-- CAMP GROUND LIST -->
       <main id="main-content">
         <div class="card-container" id="card-container"></div>
