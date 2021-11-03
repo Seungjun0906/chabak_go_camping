@@ -1,39 +1,31 @@
-function sign_in() {
-    // 아이디, 비밀번호 값을 변수에 담는다.
-    let user_id = $("#user_id").val()
-    let password = $("#password").val()
-    // 아이디를 입력하지 않았다면 "아이디를 입력해주세요."라는 경고 메세지가 나오면서 인풋 박스에 포커스하고 함수 종료
-    if (user_id == "") {
-        alert("아이디를 입력해주세요.")
-        $("#user_id").text("아이디를 입력해주세요.")
-        $("#user_id").focus()
+function login() {
+
+    let id_give = $("#user_id").val();
+    let pw_give = $("#password").val();
+
+    if (id_give == "") {
+        alert("아이디를 입력해주세요");
         return false;
     }
-    if (password == "") {
-        alert("비밀번호를 입력해주세요")
-        $("#password").text("비밀번호를 입력해주세요.")
-        $("#password").focus()
+    if (pw_give == "") {
+        alert("패스워드를 입력해주세요");
         return false;
-    } 
-    //ajax로 post방식을 통해 sign_in에 아이디와 비밀번호를 보냄
+    }
+
     $.ajax({
         type: "POST",
         url: "/login",
-        data: {
-            user_id: user_id,
-            password: password
-        },
+        data: { id_give: id_give, pw_give: pw_give },
         success: function (response) {
-            // 결과값이 success라면
             if (response['result'] == 'success') {
-                //쿠키생성, 메세지
-                console.log(response['result'])
-                $.cookie('mytoken', response['token'])
-                window.location.href='/article';
-                alert('로그인완료!');
+                // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
+                // 토큰을 mytoken이라는 키 값으로 쿠키에 저장합니다.
+                $.cookie('mytoken', response['token']);
+                return window.location.href = '/'
             } else {
-                alert(response['msg'])
+                // 로그인이 실패시 에러메시지를 띄웁니다.
+                return alert(response['msg'])
             }
         }
-    });
+    })
 }

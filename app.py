@@ -1,39 +1,32 @@
-from pymongo import MongoClient
-import jwt
 from datetime import datetime
-from flask import Flask,request,render_template,redirect,flash,url_for
-from flask.json import jsonify
-from werkzeug.utils import secure_filename
-import requests
+from bson.objectid import ObjectId
+import base64
+import datetime 
+import jwt
 import hashlib
-import datetime
-# from signup.signup import User
-client = MongoClient('localhost', 27017)
-db = client.users
-
+import json
+import requests
+from pymongo import MongoClient
+from flask import Flask, render_template, jsonify, request, session, redirect, url_for
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "ABCD"
-SECRET_KEY = 'secret'
-
+SECRET_KEY = 'SECRET'
 API_KEY= 'W7rRGCTEuCgKF9Ml%2FwKJbHCJf0duO218F3SYriSEGGFnjmztdsdfE9CmzyEcW8vma%2FwxwqteC1HIXU4bTgjjOg%3D%3D'
 API_URL=f'http://api.visitkorea.or.kr/openapi/service/rest/GoCamping/basedList?ServiceKey={API_KEY}&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=TestApp&_type=json'
 
-@app.route('/')
-def main():
+client = MongoClient('localhost', 27017)
+db = client.user
+
+@ app.route('/')
+def home():
     token_receive = request.cookies.get('mytoken')
     try:
-        # token을 시크릿키로 디코딩
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        
-        # payload 안에 id가 들어있습니다. 이 id로 유저정보를 찾습니다.
-        
-        return redirect("article")
-
+        return redirect("/article")
     except jwt.ExpiredSignatureError:
-        # 만료시간이 지났으면 에러가 납니다.
-        return redirect(url_for('render_login'))
+        return redirect(url_for("login", token_expired="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
-        return redirect(url_for('render_login'))
+        return redirect(url_for("login"))
+
 @app.route('/article')
 def show_article() :
     token_receive = request.cookies.get('mytoken')
@@ -50,116 +43,65 @@ def show_article() :
     except jwt.exceptions.DecodeError:
         return redirect(url_for('render_login'))
 
-
-@app.route('/login',methods=['GET'])
-def render_login():
-    if request.method=="GET":
-        return render_template("login.html")
-
-
-# ajax 요청을 받음
-@app.route('/login', methods=['POST'])
+@ app.route('/login')
 def login():
-    if request.method == "POST":
-        user_id = request.form['user_id']
-        password = request.form['password']
+    token_expired = request.args.get("token_expired")
+    return render_template('login.html', token_expired=token_expired)
 
-        pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
-        user_data = db.users.find_one({'id':user_id,'pw':pw_hash})
-        
-        if not user_data:
-            flash("없는 아이디입니다.")
-            return redirect(url_for('render_login'))
+@ app.route('/login', methods=['POST'])
+def render_login():
+    if request.method == 'POST':
+        id_receive = request.form['user_id']
+        pw_receive = request.form['password']
 
-        elif pw_hash != user_data['password']:
-            flash("비밀번호를 확인해주세요.")
-            return url_for("/login")
+        pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
+        result = db.user.find_one({'id': id_receive, 'pw': pw_hash})
 
-        if user_data is not None:
+        if result is not None:
             payload = {
-                'id': user_id,
-                'exp': datetime.utcnow() + datetime.timedelta(hours=1)
+                'id': id_receive,
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
             }
-            # 뒤에 decode는 byte 속성을 문자열로 바꾸는 역할
-            token = jwt.encode(payload,SECRET_KEY,algoristm='HS256').decode('utf-8')
-            
-            return jsonify({
-                'result':'success','token' : token })
-        else :
-            return jsonify({'result': 'fail','msg':'아이디/비밀번호가 맞지 않습니다.'})
+            token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+
+            return jsonify({'result': 'success', 'token': token})
+        else:
+            return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 
-@app.route('/register', methods=['GET'])
-def join():
-    if request.method == 'GET':
+@ app.route('/register', methods=['GET'])
+def register():
+    if request.method == "GET":    
         return render_template('register.html')
 
-class User:
-    
-    def signup(self):
-        print(request.form)
-        
-        user={
-        "id":request.form['user_id'],
-        "fullname":request.form['fullname'],
-        "password":request.form['password'],
-        "check_password":request.form['check_password'] 
-        }
-        
-        hashlib.sha256(user['password'].encode('utf-8')).hexdigest()
-        
-        # check exisiting
-        if db.users.find_one({'id':user['id']}):
-            flash("이미 가입된 이메일입니다")
-            return redirect('/register')
-        elif db.users.find_one({'check_password':user['password']}):
-            flash("패스워드를 다시 확인해주세요")
-            return redirect('/register')
-        else: 
-            redirect('/login')
-            db.users.insert_one(user)
-            return jsonify(user)
-            # return redirect('/login')
-            
-            
-        # not db.users.find_one({'id':user['id']}) and db.users.find_one({'check_password':user['password']}):
-       
-        
-        
-       
-    
+
+@ app.route('/register', methods=['POST'])
+def sign_up():
+    if request.method == "POST":
+        id_receive = request.form['user_id']
+        pw_receive = request.form['password']
+        check_password = request.form['check_password']
+
+        check_dup_user = db.user.find_one({'id': id_receive})
+
+        if check_dup_user is not None:
+            if check_dup_user['id']==id_receive:
+                return jsonify({'result': 'fail', 'msg': '중복된 아이디가 존재합니다.'})
+
+        if pw_receive != check_password:
+            return jsonify({'result': 'fail', 'msg': '비밀번호가 서로 일치하지 않습니다.'})
+
+        pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
+
+        db.user.insert_one({'id': id_receive, 'pw': pw_hash })
+
+        # result = db.user.find_one({'id': id_receive, 'pw': pw_hash})
+
+        return jsonify ({'result':'success'})
         
 
-    
-@app.route('/register', methods=['POST'])
-def register():
-    user = User()
-    return user.signup()
-    
-    # if request.method == 'POST' :
-    #       user={
-    #     "id":request.form['user_id'],
-    #     "fullname":request.form['fullname'],
-    #     "password":request.form['password'],
-    #     "check_password":request.form['check_password']            }
-        
-    #     if db.user.find_one({"id":user["id"]}):
-        
-    #     if user_id in user_info  :
-    #         flash("이미 가입된 이메일입니다")
-    #         return redirect('/register')
-
-    #     if password != check_password:
-    #         flash("패스워드를 다시 확인해주세요")
-    #         return redirect('/register')
-    #     pw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
-
-    #     db.users.insert_one(user)
-            
-    # return render_template('login.html')
 
 
 if __name__ == '__main__':
-    app.debug = True
-    app.run()
+    app.run('0.0.0.0', port=5011, debug=True)
