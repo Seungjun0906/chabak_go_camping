@@ -1,28 +1,28 @@
-.container {
+#container {
   height: 100vh;
   width: 100vw;
   position: fixed;
   background-color: skyblue;
 }
 
-.login-form {
+#login-form {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: whitesmoke;
-  padding: 3rem;
+  padding: 1.3rem 1.4rem;
   border-radius: 1rem;
   box-shadow: 0.5rem 0.5rem 1rem;
-  height: 30rem;
-  width: 40rem;
+  height: 25rem;
+  width: 30rem;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.form-control {
+#form-control {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,18 +30,18 @@
   width: 100%;
 }
 
-.form-control label {
-  margin-bottom: 0.8rem;
-  font-size: 1.5rem;
+#form-control label {
+  margin-bottom: 1rem;
+  font-size: 1rem;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
-.form-control input {
+#form-control input {
   font-family: inherit;
-  font-size: 2rem;
+  font-size: 1rem;
   text-align: center;
-  padding: 1rem;
+  padding: 0.5rem;
   width: 100%;
   margin-bottom: 1rem;
   border-radius: 1rem;
@@ -49,20 +49,25 @@
   border: none;
 }
 
-.btn {
-  padding: 1rem;
-  width: 100%;
+.button {
+  padding: 0.5rem;
+  width: 50%;
   letter-spacing: 1px;
   border-radius: 1rem;
-  box-shadow: 0.5rem 0.5rem 1rem;
+  box-shadow: 0.2rem 0.2rem 0.5rem;
   font-weight: bold;
   border: none;
   background: #e4dede;
 }
 
-.btn-login {
-  margin-top: 3rem;
+.button-login {
+  margin-top: 2rem;
   margin-bottom: 1rem;
+}
+
+.button-signup a {
+  color: black;
+  text-decoration: none;
 }
 
 @media (max-width: 550px) {
