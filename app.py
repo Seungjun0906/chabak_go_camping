@@ -13,6 +13,7 @@ SECRET_KEY = 'SECRET'
 API_KEY= 'W7rRGCTEuCgKF9Ml%2FwKJbHCJf0duO218F3SYriSEGGFnjmztdsdfE9CmzyEcW8vma%2FwxwqteC1HIXU4bTgjjOg%3D%3D'
 API_URL=f'http://api.visitkorea.or.kr/openapi/service/rest/GoCamping/basedList?ServiceKey={API_KEY}&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=TestApp&_type=json'
 
+
 client = MongoClient('localhost', 27017)
 db = client.chabak
 
@@ -96,7 +97,7 @@ def api_sign_up():
     db.user.insert_one({'id': id_receive, 'pw': pw_hash })
 
     result = db.user.find_one({'id': id_receive, 'pw': pw_hash})
-    
+
     if result is not None:
         payload = {
             'id': id_receive,
@@ -148,4 +149,4 @@ def save_diary():
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5021, debug=True)
+    app.run('0.0.0.0', port=5022, debug=True)
