@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block title %} 차박GO캠핑 {% endblock %} {% block
+head %} {{super()}} <link rel="stylesheet" type href="static/article.css" /> {%
+endblock %} {% block content %}
+<main>
+  <div class="container">
+    {% for camp in campsite_list %}
+
+    <div class="content">
+      <figure>
+        <div class="img-container">
+          <img src="{{camp.firstImageUrl}}" class="content__img" />
+        </div>
+        <figcaption class="content__description">
+          <h2 class="description__title">{{camp.facltNm}}</h2>
+          <div class="description__detail">
+            <span class="description__addr"><b>주소: </b> {{camp.addr1}}</span>
+            <span class="description__intro"><b>소개: </b> {{camp.intro}}</span>
+            <span class="description__rsvn"
+              ><b>예약방법: </b> {{camp.resveCl}}</span
+            >
+            <span class="description__rsvn"
+              ><b>예약 사이트: </b>
+              <a href="{{camp.resveUrl}}"> {{camp.resveUrl}} </a></span
+            >
+          </div>
+        </figcaption>
+      </figure>
+    </div>
+
+    {%endfor%}
+  </div>
+</main>
+{% endblock %} {%block javascript%} {%endblock %}

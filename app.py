@@ -11,7 +11,7 @@ from flask import Flask, render_template, jsonify, request, session, redirect, u
 app = Flask(__name__)
 SECRET_KEY = 'SECRET'
 API_KEY= 'W7rRGCTEuCgKF9Ml%2FwKJbHCJf0duO218F3SYriSEGGFnjmztdsdfE9CmzyEcW8vma%2FwxwqteC1HIXU4bTgjjOg%3D%3D'
-API_URL=f'http://api.visitkorea.or.kr/openapi/service/rest/GoCamping/basedList?ServiceKey={API_KEY}&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=TestApp&_type=json'
+API_URL=f'http://api.visitkorea.or.kr/openapi/service/rest/GoCamping/basedList?ServiceKey={API_KEY}&numOfRows=70&pageNo=4&MobileOS=ETC&MobileApp=TestApp&_type=json'
 
 client = MongoClient('localhost', 27017)
 db = client.chabak
@@ -30,19 +30,32 @@ def home():
 @app.route('/article')
 def show_article() :
     token_receive = request.cookies.get('mytoken')
-    
     try :
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        req = requests.get(API_URL)
-        res = req.json()
-        print(res)
-        return render_template('main.html')
+        
+        res = requests.get(API_URL)
+        data = res.json()
+        campsite_list = list(data['response']['body']['items']['item'])
+
+        def campsite_with_photo(camp_list):
+            new_list=[]
+            for camp in camp_list:
+                if 'firstImageUrl' and 'intro' and 'resveUrl' in camp.keys():
+                    new_list.append(camp)
+            return new_list
+      
+        filtered_camp = campsite_with_photo(campsite_list)
+    
+        return render_template('article.html',campsite_list=filtered_camp)
+    
+     
     except jwt.ExpiredSignatureError:
         # 만료시간이 지났으면 에러가 납니다.
         return redirect(url_for('render_login'))
     except jwt.exceptions.DecodeError:
         return redirect(url_for('render_login'))
         # 로그인 정보가 존재하지 않음.
+        
+        
 
 @ app.route('/login')
 def login():
@@ -116,7 +129,7 @@ def review_home():
 @app.route('/diary', methods=['GET'])
 def show_diary():
     diaries = list(db.diary.find({}, {'_id': False}))
-    return jsonify({'all_diary': diaries})
+    return render_template('review.html', diaries = diaries)
 
 @app.route('/diary', methods=['POST'])
 def save_diary():

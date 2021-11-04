@@ -1,13 +1,12 @@
 {% extends "base.html" %} {% block title %}signup {% endblock %} {% block head
 %} {{super()}}
-<!-- <link rel="stylesheet" href="static/base.css" type="text/css" /> -->
 <link rel="stylesheet" href="static/register.css" tpye="text/css" />
 {% endblock %} {% block content %}
 <main id="container">
   <form
     name="signup_form"
     class="register-form"
-    action="/register"
+    action="/api/sign-up"
     method="post"
   >
     <div id="form-control">
@@ -37,7 +36,7 @@
       <input
         name="pwConfirm_give"
         type="password"
-        placeholder="REENTER PASSWORD"
+        placeholder="RE-ENTER PASSWORD"
         id="pwConfirm_give"
       />
       <small id="passwordConfirmHelp" class="form-text text-muted"
@@ -50,5 +49,5 @@
   </form>
 </main>
 {% endblock %} {%block javascript%}
-<script src="../static/sign-up.js"></script>
+<script src="static/sign-up.js"></script>
 {%endblock %}

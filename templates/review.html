@@ -93,20 +93,19 @@
       </div>
     </div>
   </div>
-  <div class="card-columns" id="cards-box"></div>
+  <div class="card-columns" id="cards-box">
+    {%for diary in diaries %}
+    <div class="card">
+      <img class="card-img-top" src="static/{{diary.file}}" />
+      <div class="card-body">
+        <a target="_blank" href="#" class="card-title"> {{diary.title}} </a>
+        <p class="card-text">{{diary.content}}</p>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
 </div>
 {% endblock %} {%block javascript%}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-  crossorigin="anonymous"
-></script>
 
 <script>
   $(document).ready(function () {

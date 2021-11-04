@@ -3,7 +3,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: whitesmoke;
+  background-color: rgba(226, 223, 223, 0.9);
   padding: 1.5rem 2rem;
   border-radius: 1rem;
   box-shadow: 0.5rem 0.5rem 1rem;
@@ -19,7 +19,6 @@
   height: 100vh;
   width: 100vw;
   position: fixed;
-  background-color: skyblue;
 }
 
 #form-control {
@@ -47,6 +46,7 @@
   border-radius: 1rem;
   letter-spacing: 4px;
   border: none;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 small {

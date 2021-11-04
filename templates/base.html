@@ -8,6 +8,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    <link rel="stylesheet" href="static/base.css" type="text/css" />
     <!-- Boots strap CSS -->
 
     <link
@@ -25,6 +26,9 @@
     {%endblock%}
   </head>
   <body>
+    <video autoplay muted loop id="bg-video">
+      <source src="static/bgvideo.mp4" type="video/mp4" />
+    </video>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
       <a class="navbar-brand" href="/">
         <span class="text-center">차박GO캠핑</span>
@@ -54,6 +58,12 @@
               ><i class="fa fa-address-card" aria-hidden="true"></i>회원가입</a
             >
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/review"
+              ><i class="fas fa-comment-alt-edit" aria-hidden="true"></i>후기</a
+            >
+          </li>
+
           <!--인증시-->
           {% else %}
           <li class="nav-item">
@@ -61,18 +71,19 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" style="cursor: pointer" onclick="logout()"
-              ><i class="fa fa-sign-out" aria-hidden="true"></i>로그아웃</a
+              ><span><i class="fa fa-sign-out" aria-hidden="true"></i></span
+              >로그아웃</a
             >
           </li>
           {% endif %}
         </ul>
       </div>
-      <script src="../static/header.js"></script>
     </nav>
     {%block content %} {%endblock %}
 
     <!-- JavaSscript -->
-    {%block javascript%}
+
+    <script src="static/header.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -90,9 +101,6 @@
     ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    {%endblock%}
+    {%block javascript %} {%endblock%}
   </body>
 </html>
-
-1. 베이스 헤더, 푸터 2. 메인 페이지 20 개 3. 로그인 4. 회원가입 5. 게시판 6.
-디테일
