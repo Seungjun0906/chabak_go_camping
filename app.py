@@ -13,10 +13,9 @@ SECRET_KEY = 'SECRET'
 API_KEY = 'W7rRGCTEuCgKF9Ml%2FwKJbHCJf0duO218F3SYriSEGGFnjmztdsdfE9CmzyEcW8vma%2FwxwqteC1HIXU4bTgjjOg%3D%3D'
 API_URL = f'http://api.visitkorea.or.kr/openapi/service/rest/GoCamping/basedList?ServiceKey={API_KEY}&numOfRows=70&pageNo=4&MobileOS=ETC&MobileApp=TestApp&_type=json'
 
-# 배포용 mongo 코드
-# client = MongoClient('mongodb://test:test@localhost', 27017)
 
-client = MongoClient('localhost', 27017)
+
+client = MongoClient('mongodb://test:test@localhost', 27017)
 db = client.chabak
 
 
@@ -176,4 +175,4 @@ def save_diary():
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5024, debug=True)
+    app.run('0.0.0.0', port=5000, debug=True)
