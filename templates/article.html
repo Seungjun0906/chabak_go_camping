@@ -8,7 +8,12 @@ endblock %} {% block content %}
     <div class="content">
       <figure>
         <div class="img-container">
-          <img src="{{camp.firstImageUrl}}" class="content__img" />
+          <img
+            src="{{camp.firstImageUrl}}"
+            alt="static/alt.jpg"
+            class="content__img"
+            onError="this.onerror=null;this.src='static/alt.jpg'"
+          />
         </div>
         <figcaption class="content__description">
           <h2 class="description__title">{{camp.facltNm}}</h2>
@@ -30,4 +35,4 @@ endblock %} {% block content %}
     {%endfor%}
   </div>
 </main>
-{% endblock %} {%block javascript%} {%endblock %}
+{% endblock %}

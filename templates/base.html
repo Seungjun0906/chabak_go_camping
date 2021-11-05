@@ -25,6 +25,7 @@
     <title>{%block title%}{%endblock%}Template</title>
     {%endblock%}
   </head>
+
   <body>
     <video autoplay muted loop id="bg-video">
       <source src="static/bgvideo.mp4" type="video/mp4" />
@@ -75,6 +76,11 @@
               >로그아웃</a
             >
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/review"
+              ><i class="fas fa-comment-alt-edit" aria-hidden="true"></i>후기</a
+            >
+          </li>
           {% endif %}
         </ul>
       </div>
@@ -83,7 +89,6 @@
 
     <!-- JavaSscript -->
 
-    <script src="static/header.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -101,6 +106,7 @@
     ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="static/header.js"></script>
     {%block javascript %} {%endblock%}
   </body>
 </html>
