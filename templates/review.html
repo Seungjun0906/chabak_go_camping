@@ -109,7 +109,43 @@
 </div>
 {% endblock %} {%block javascript%}
 
+<!-- temporary -->
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+
+<!-- temporary -->
 <script>
+  $(document).ready(function () {
+    bsCustomFileInput.init();
+    listing();
+  });
+
+  function listing() {
+    $.ajax({
+      type: "GET",
+      url: "/diary",
+      data: {},
+      success: function (response) {
+        let diaries = response["all_diary"];
+        for (let i = 0; i < diaries.length; i++) {
+          let title = diaries[i]["title"];
+          let content = diaries[i]["content"];
+          let file = diaries[i]["file"];
+          let time = diaries[i]["time"];
+
+          let temp_html = `<div class="card">
+                                         <img src="../static/${file}" class="card-img-top border_radius">
+                                         <div class="card-body">
+                                             <h5 class="card-title">${title}</h5>
+                                             <p class="card-text">${content}</p>
+                                             <p class="save-date font_right">${time}</p>
+                                         </div>
+                                     </div>`;
+          $("#cards-box").append(temp_html);
+        }
+      },
+    });
+  }
+
   function posting() {
     let title = $("#title").val();
     let content = $("#content").val();
@@ -144,5 +180,8 @@
       $("#btn-post-box").text("포스팅 박스 닫기");
     }
   }
+
+  function board_de() {}
 </script>
+
 {%endblock %}

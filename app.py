@@ -14,8 +14,8 @@ API_KEY = 'W7rRGCTEuCgKF9Ml%2FwKJbHCJf0duO218F3SYriSEGGFnjmztdsdfE9CmzyEcW8vma%2
 API_URL = f'http://api.visitkorea.or.kr/openapi/service/rest/GoCamping/basedList?ServiceKey={API_KEY}&numOfRows=70&pageNo=4&MobileOS=ETC&MobileApp=TestApp&_type=json'
 
 
-
-client = MongoClient('mongodb://test:test@localhost', 27017)
+client = MongoClient('localhost')
+# client = MongoClient('mongodb://test:test@localhost', 27017)
 db = client.chabak
 
 
