@@ -146,19 +146,20 @@ def show_diary():
 
 @app.route('/diary', methods=['POST'])
 def save_diary():
+    # 데이터를 reviw.html에서 받아옴
     title_receive = request.form['title_give']
     content_receive = request.form['content_give']
     
     file = request.files["file_give"]
-    
+    # 확장자명 만듬
     extension = file.filename.split('.')[-1]
-    # 이게 무슨뜻이지 확장자!
 
+    # datetime 클래스로 현재 날짜와시간 만들어줌 -> 현재 시각을 출력하는 now() 메서드
     today = datetime.datetime.now()
     mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
 
     filename = f'file-{mytime}'
-    # 파일에 시간붙여서 filename 으로 저장
+    # 파일에 시간붙여서 static폴더에 filename 으로 저장
     save_to = f'static/{filename}.{extension}'
     file.save(save_to)
 
@@ -168,7 +169,7 @@ def save_diary():
         'file': f'{filename}.{extension}',
         'time': today.strftime('%Y.%m.%d')
     }
-
+    # diary collection에 저장
     db.diary.insert_one(doc)
 
     return jsonify({'msg': '저장 완료!'})

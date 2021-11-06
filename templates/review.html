@@ -147,16 +147,17 @@
   }
 
   function posting() {
+    /*input 데이터 가져오기*/
     let title = $("#title").val();
     let content = $("#content").val();
-
+    /*$("#file")[0]->input태그*/ /*.files -> length(갯수)*/
     let file = $("#file")[0].files[0];
     let form_data = new FormData();
-
+    /*파일 데이터가 있을경우 new FormData를 변수(form_data)에 대입하고 변수(form_data)를 input데이터를 append 해서 넣어줌*/
     form_data.append("file_give", file);
     form_data.append("title_give", title);
     form_data.append("content_give", content);
-
+     /*app.py /diary api로 데이터를 보내주고 받아옴*/
     $.ajax({
       type: "POST",
       url: "/diary",
@@ -170,14 +171,14 @@
       },
     });
   }
-
-  function openClose() {
-    if ($("#post-box").css("display") == "block") {
-      $("#post-box").hide();
-      $("#btn-post-box").text("포스팅 박스 열기");
+  
+  function openClose() {  /*포스팅박스 열고닫기 기능*/
+    if ($("#post-box").css("display") == "block") { /*display : block -> 포스팅박스가 보일때*/
+      $("#post-box").hide();                        /*포스팅박스 닫고*/
+      $("#btn-post-box").text("포스팅 박스 열기");     /*포스팅 박스 텍스트-> '포스팅 박스 열기'*/
     } else {
-      $("#post-box").show();
-      $("#btn-post-box").text("포스팅 박스 닫기");
+      $("#post-box").show();                        /*display : none-> 포스팅박스 열고*/
+      $("#btn-post-box").text("포스팅 박스 닫기");     /*포스팅 박스 텍스트 -> '포스팅 박스 닫기'*/
     }
   }
 
